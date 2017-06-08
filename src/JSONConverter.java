@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Map;
 
 
-
 /**
  * Created by JIT on 05.06.2017.
  */
@@ -18,7 +17,7 @@ public class JSONConverter {
     private Field[] fields;
 
     public String toJson(Object convertedObject) {
-        if(convertedObject==null){
+        if (convertedObject == null) {
             return "null";
         }
         sb = new StringBuilder();
@@ -77,18 +76,26 @@ public class JSONConverter {
         int fieldsLength = fields.length;
         for (Field f : fields) {
             f.setAccessible(true);
-            if (f.getType().isPrimitive() || f.getType() == Integer.class) {
-                primitiveConverter(f);
-            } else if (f.getType() == String.class || f.getType() == Enum.class) {
-                stringOrEnumConverter(f);
-            } else if (f.getType().isArray()) {
-                arrayConverter(f);
-            } else if (Collection.class.isAssignableFrom(f.getType())) {
-                collectionConverter(f);
-            } else if (Map.class.isAssignableFrom(f.getType())) {
-                mapConverter(f);
-            } else {
-                objectConverter(f);
+            try {
+                if (f.get(objectToConvert) != null) {
+                    if (f.getType().isPrimitive()) {
+                        primitiveConverter(f);
+                    } else if (f.getType() == String.class || f.getType() == Enum.class) {
+                        stringOrEnumConverter(f);
+                    } else if (f.getType().isArray()) {
+                        arrayConverter(f);
+                    } else if (Collection.class.isAssignableFrom(f.getType())) {
+                        collectionConverter(f);
+                    } else if (Map.class.isAssignableFrom(f.getType())) {
+                        mapConverter(f);
+                    } else {
+                        objectConverter(f);
+                    }
+                }else{
+                    sb.deleteCharAt(sb.length()-1);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
             //add ',' if it isn't the last field of converted object
             if (f != fields[fieldsLength - 1] || !f.equals(fields[fieldsLength - 1])) {
