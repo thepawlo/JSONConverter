@@ -13,7 +13,7 @@ public class Test {
 
         MyObject myObject = new MyObject(1, true );
         JSONConverter jsonConverter = new JSONConverter();
-        String resultJSON = jsonConverter.toJson(myObject);
+        String resultJSON = jsonConverter.toJson(true);
         System.out.println("myConv= "+resultJSON);
 
         MyObject[] objects = {new MyObject(3,true),new MyObject(4, false)};
@@ -25,7 +25,7 @@ public class Test {
         list2.add("dfsdf");
         list2.add("sad");
         Gson gson = new Gson();
-        System.out.println("gson=   "+gson.toJson(myObject));
+        System.out.println("gson=   "+gson.toJson(false));
 
         String resultdsfdfJSON = jsonConverter.toJson(myObject);
         System.out.println(resultdsfdfJSON);

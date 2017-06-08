@@ -14,6 +14,7 @@ public class AnotherObject {
     private List<NextObject> list;
     private Map<Object, NextObject> map;
     private NextObject nextObject;
+    private NextObject nextOne;
 
     public AnotherObject(int id, String describe) {
         this.id = id;
@@ -25,6 +26,7 @@ public class AnotherObject {
         this.map=new HashMap<>();
         map.put(new Object(),new NextObject());
         this.nextObject = null;
+        this.nextOne = new NextObject();
 
 
     }

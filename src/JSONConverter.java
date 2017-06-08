@@ -2,7 +2,9 @@
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -10,6 +12,9 @@ import java.util.Map;
  */
 public class JSONConverter {
 
+
+    private static final Class[] PRIMITIVES = new Class[]{Integer.class, Double.class, Boolean.class,
+                                                        Byte.class,Character.class, Short.class, Long.class, Float.class};
 
     private StringBuilder sb;
     private StringBuilder result;
@@ -33,7 +38,7 @@ public class JSONConverter {
             resultJson = convertArrayToJson();
         } else if (String.class.isAssignableFrom(objectToConvert.getClass())) {
             resultJson = convertStringToJson();
-        } else if (objectToConvert.getClass().isPrimitive()) {
+        } else if (checkPrimitive(objectToConvert.getClass())) {
             resultJson = convertPrimitiveToJson();
         } else {
             resultJson = convertObjectToJson();
@@ -41,9 +46,18 @@ public class JSONConverter {
         return resultJson;
     }
 
+    private boolean checkPrimitive(Class<?> cls){
+        for(Class cs : PRIMITIVES){
+            if(cs==cls){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private String convertPrimitiveToJson() {
-        result.append("\"" + objectToConvert.toString() + "\"");
+        result.append(objectToConvert.toString());
         return result.toString();
     }
 
