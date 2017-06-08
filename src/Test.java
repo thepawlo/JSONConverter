@@ -27,8 +27,8 @@ public class Test {
         Gson gson = new Gson();
         System.out.println("gson=   "+gson.toJson(myObject));
 
-
-
+        String resultdsfdfJSON = jsonConverter.toJson(myObject);
+        System.out.println(resultdsfdfJSON);
     }
 
 }

@@ -24,7 +24,7 @@ public class AnotherObject {
 
         this.map=new HashMap<>();
         map.put(new Object(),new NextObject());
-        this.nextObject = new NextObject();
+        this.nextObject = null;
 
 
     }

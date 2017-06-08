@@ -3,7 +3,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
+
 
 
 /**
@@ -12,12 +12,17 @@ import java.util.Set;
 public class JSONConverter {
 
 
-    private StringBuilder sb = new StringBuilder();
-    private StringBuilder result = new StringBuilder();
+    private StringBuilder sb;
+    private StringBuilder result;
     private Object objectToConvert;
     private Field[] fields;
 
     public String toJson(Object convertedObject) {
+        if(convertedObject==null){
+            return "null";
+        }
+        sb = new StringBuilder();
+        result = new StringBuilder();
         objectToConvert = convertedObject;
         String resultJson;
         fields = objectToConvert.getClass().getDeclaredFields();
